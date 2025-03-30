@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minal Aidin Wal Faidzin</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-out forwards;
+        }
+        .question {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            animation: slideIn 0.8s ease-out forwards;
+            transform: translateX(-100%);
+            border: 2px solid lightblue;
+        }
+        .question img {
+            width: 100px;
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            animation: slideIn 0.8s ease-out forwards;
+            transform: translateX(-100%);
+        }
+        .button.red {
+            background-color: red;
+            color: white;
+            animation-delay: 0.2s;
+        }
+        .button.green {
+            background-color: green;
+            color: white;
+            transition: transform 0.3s ease;
+            animation-delay: 0.4s;
+        }
+        .message {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            display: none;
+            animation: fadeIn 1s ease-out forwards;
+            z-index: 1000;
+        }
+        .message img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid orange;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+
+        @keyframes fallAndFade {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(200px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <img src="maaf_maafan.jpg" alt="Maaf-maafan"> <span class="typing-animation" id="questionText">Halo, Minal Aidin Wal Faidzin ya, maafin kalau ada salah yaa.</span>
+        </div>
+        <button class="button red" id="redButton">GAK MAU</button>
+        <button class="button green" id="greenButton">YA AKU MAAFIN</button>
+        <div class="message" id="messageBox">
+            <img src="makasih.jpg" alt="Gambar Hati">
+            <span class="typing-animation" id="messageText">Makasih udah maafinnn :)</span>
+        </div>
+        <audio id="backgroundMusic" loop autoplay>
+            <source src="sound_islami.m4a" type="audio/m4a"> Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        const redButton = document.getElementById('redButton');
+        const greenButton = document.getElementById('greenButton');
+        const messageBox = document.getElementById('messageBox');
+        const questionDiv = document.querySelector('.question'); // Mengambil elemen question
+        const buttons = document.querySelectorAll('.button'); // Mengambil semua elemen button
+
+        let clickCount = 0;
+        const messageText = document.getElementById('messageText');
+        messageText.style.width = '0';
+
+        redButton.addEventListener('click', () => {
+            clickCount++;
+            greenButton.style.transform = `scale(${1 + clickCount * 0.2})`;
+
+            if (clickCount >= 4) {
+                greenButton.style.transform = 'scale(1.5)';
+                redButton.style.animation = 'fallAndFade 1s ease-out forwards';
+            }
+        });
+
+        redButton.addEventListener('animationend', () => {
+            redButton.remove();
+        });
+
+        greenButton.addEventListener('click', () => {
+            messageBox.style.display = 'flex';
+            questionDiv.style.display = 'none'; // Menyembunyikan elemen question
+            buttons.forEach(button => button.style.display = 'none'); // Menyembunyikan tombol-tombol
+        });
+    </script>
+</body>
+</html>

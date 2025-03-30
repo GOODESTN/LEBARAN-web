@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minal Aidin Wal Faidzin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: sans-serif;
+            overflow: auto;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-out forwards;
+            width: 90%;
+            max-width: 600px;
+        }
+        .question {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: relative;
+            animation: slideIn 0.8s ease-out forwards;
+            transform: translateX(-100%);
+            border: 3px solid lightblue;
+            font-size: 1.2em;
+        }
+        .question img {
+            width: 120px;
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 8px;
+            animation: slideIn 0.8s ease-out forwards;
+            transform: translateX(-100%);
+        }
+        .button.red {
+            background-color: red;
+            color: white;
+            animation-delay: 0.2s;
+        }
+        .button.green {
+            background-color: green;
+            color: white;
+            transition: transform 0.3s ease;
+            animation-delay: 0.4s;
+        }
+        .message {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 300px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            border: 3px solid pink;
+        }
+        .message img {
+            width: 150px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid orange;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1.2em;
+            width: 100%; /* Ditambahkan agar teks selalu ditampilkan */
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+
+        @keyframes fallAndFade {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(200px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">
+            <img src="maaf_maafan.jpg" alt="Maaf-maafan">
+            <span class="typing-animation" id="questionText">Halo, Minal Aidin Wal Faidzin ya,<br>maafin kalau ada salah yaa.</span>
+        </div>
+        <button class="button red" id="redButton">GAK MAU</button>
+        <button class="button green" id="greenButton">YA AKU MAAFIN</button>
+        <div class="message" id="messageBox">
+            <img src="makasih.jpg" alt="Gambar Kucing Kotak">
+            <span class="typing-animation" id="messageText">YEEYY makasih udah <br>maafinnn 🥰🥰:)</span>
+        </div>
+        <audio id="backgroundMusic" loop>
+            <source src="sound_islami.m4a" type="audio/m4a">
+            <source src="sound_islami.mp3" type="audio/mpeg">
+            Your browser does does not support the audio element.
+        </audio>
+    </div>
+
+    <script>
+        const redButton = document.getElementById('redButton');
+        const greenButton = document.getElementById('greenButton');
+        const messageBox = document.getElementById('messageBox');
+        const questionDiv = document.querySelector('.question');
+        const buttons = document.querySelectorAll('.button');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        let clickCount = 0;
+        const messageText = document.getElementById('messageText');
+        // Hapus baris ini: messageText.style.width = '0';
+
+        redButton.addEventListener('click', () => {
+            clickCount++;
+            greenButton.style.transform = `scale(${1 + clickCount * 0.2})`;
+
+            if (clickCount >= 4) {
+                greenButton.style.transform = 'scale(1.5)';
+                redButton.style.animation = 'fallAndFade 1s ease-out forwards';
+            }
+        });
+
+        greenButton.addEventListener('click', () => {
+            messageBox.style.display = 'flex';
+            questionDiv.style.display = 'none';
+            buttons.forEach(button => button.style.display = 'none');
+            backgroundMusic.play();
+        });
+    </script>
+</body>
+</html>
